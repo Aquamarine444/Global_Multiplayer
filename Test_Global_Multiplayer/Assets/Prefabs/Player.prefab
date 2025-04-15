@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3150230891150846493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2172086113165994887}
+  m_Layer: 0
+  m_Name: LaserPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2172086113165994887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150230891150846493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.16, y: 0, z: 0.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7138816116694406986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4488150267730309876
 GameObject:
   m_ObjectHideFlags: 0
@@ -17,6 +48,7 @@ GameObject:
   - component: {fileID: 2760695668609551989}
   - component: {fileID: 7730971979947252034}
   - component: {fileID: 8135679203195127918}
+  - component: {fileID: 2090035724827431148}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -38,6 +70,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4039196751986645660}
+  - {fileID: 2172086113165994887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1603265666925774208
@@ -187,10 +220,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   moveSpeed: 5
-  lookSpeed: 2
+  lookSpeed: 5
   jumpHeight: 1.5
   gravity: -9.81
   playerCamera: {fileID: 4039196751986645660}
+  lazerTransform: {fileID: 2172086113165994887}
+  lazerBeam: {fileID: 470608740536736104, guid: 5f5666d4f0e26744c92b66945743cd05, type: 3}
 --- !u!114 &7730971979947252034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +277,22 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &2090035724827431148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4488150267730309876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a333aa0542a0f1e429139ec7489eb1d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  health: 100
 --- !u!1 &6117895871025490230
 GameObject:
   m_ObjectHideFlags: 0

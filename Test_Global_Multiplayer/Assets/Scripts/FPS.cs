@@ -6,7 +6,7 @@ public class FPSPlayer : NetworkBehaviour //NetworkBehaviour - class that comes/
 {
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
-    public float lookSpeed = 2f;
+    public float lookSpeed = 5f;
     public float jumpHeight = 1.5f;
     public float gravity = -9.81f;
 
@@ -19,6 +19,11 @@ public class FPSPlayer : NetworkBehaviour //NetworkBehaviour - class that comes/
     private Vector2 lookInput;
     private float verticalVelocity;
     private float cameraPitch = 0f;
+
+    [Header("Shooting Stuff")]
+    public Transform lazerTransform;
+    public TrailRenderer lazerBeam;
+    private bool isShooting;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -74,6 +79,29 @@ public class FPSPlayer : NetworkBehaviour //NetworkBehaviour - class that comes/
         transform.Rotate(Vector3.up * mouseX);
     }
 
+    public void HandleShoot()
+    {
+        if (!isLocalPlayer) return;
+        Ray ray = new Ray(lazerTransform.position, lazerTransform.forward);
+        // Instantiate the visual beam
+        TrailRenderer beam = Instantiate(lazerBeam, lazerTransform.position, Quaternion.identity);
+        beam.AddPosition(lazerTransform.position);
+        if (Physics.Raycast(ray, out RaycastHit hit, 50f))
+        {
+            beam.transform.position = hit.point;
+            // Try to damage a player if hit
+            var playerStats = hit.collider.gameObject.GetComponent<PlayerStats>();
+            if (playerStats)
+            {
+                playerStats.Damage(20); // Example damage amount
+            }
+        }
+        else
+        {
+            beam.transform.position = lazerTransform.position + lazerTransform.forward * 50f;
+        }
+    }
+
     public void OnMove(InputValue value) //connected to InputSystem ActionMap - get inputvalue to be able to use it in code(case sensitive)
     {
         moveInput = value.Get<Vector2>();
@@ -82,5 +110,13 @@ public class FPSPlayer : NetworkBehaviour //NetworkBehaviour - class that comes/
     public void OnLook(InputValue value) //connected to InputSystem ActionMap
     {
         lookInput = value.Get<Vector2>();
+    }
+
+    public void OnAttack(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            HandleShoot();
+        }
     }
 }

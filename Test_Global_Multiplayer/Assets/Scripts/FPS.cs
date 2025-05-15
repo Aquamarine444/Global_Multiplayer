@@ -30,6 +30,11 @@ public class FPSPlayer : NetworkBehaviour //NetworkBehaviour - class that comes/
         if (!isLocalPlayer) //if not this computer's player, disable camera
         {
             playerCamera.gameObject.SetActive(false);
+            gameObject.GetComponent<PlayerInput>().enabled = false;
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerInput>().enabled = true;
         }
 
         // Lock cursor
